@@ -1,19 +1,122 @@
 {
-  "0": "2",
-  "1": ".",
-  "2": "0",
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
-    "title": "REST API",
-    "description": ""
+    "title": "Tech Challenge Fiap",
+    "description": "Conjuntos dde recursos e operações do Tech Challenge da FIAP"
   },
-  "host": "localhost:3000",
+  "host": "localhost:31300",
   "basePath": "/",
+  "tags": [
+    {
+      "name": "Cliente",
+      "description": "APIs do domínio de Clientes"
+    },
+    {
+      "name": "Pedido",
+      "description": "APIs do domínio de Pedidos"
+    },
+    {
+      "name": "Produto",
+      "description": "APIs para gerenciamento de produtos"
+    },
+    {
+      "name": "Pagamento",
+      "description": "APIs do domínio de Pagamento"
+    }
+  ],
   "schemes": [
     "http"
   ],
   "paths": {
+    "/api/health-check/v1": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/clientes/v1": {
+      "post": {
+        "tags": [
+          "Cliente"
+        ],
+        "summary": "Cria um novo cliente",
+        "description": "Cria um novo cliente a partir das informações básicas",
+        "operationId": "postcliente",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/post_cliente"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/clientes/v1/{cpf}": {
+      "put": {
+        "tags": [
+          "Cliente"
+        ],
+        "summary": "Atualiza um novo cliente",
+        "description": "Atualiza os dados de um cliente pelo CPF",
+        "operationId": "postcliente",
+        "parameters": [
+          {
+            "name": "cpf",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/put_cliente"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "deprecated": false
+      },
+      "get": {
+        "tags": [
+          "Cliente"
+        ],
+        "summary": "Busca um cliente pelo CPF",
+        "description": "Busca os dados de clientes pelo CPF",
+        "operationId": "postcliente",
+        "parameters": [
+          {
+            "name": "cpf",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "deprecated": false
+      }
+    },
     "/api/pedidos/v1": {
       "post": {
         "tags": [
@@ -186,109 +289,6 @@
         "deprecated": false
       }
     },
-    "/api/clientes/v1": {
-      "post": {
-        "tags": [
-          "Cliente"
-        ],
-        "summary": "Cria um novo cliente",
-        "description": "Cria um novo cliente a partir das informações básicas",
-        "operationId": "postcliente",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/post_cliente"
-            }
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/api/clientes/v1/{cpf}": {
-      "put": {
-        "tags": [
-          "Cliente"
-        ],
-        "summary": "Atualiza um novo cliente",
-        "description": "Atualiza os dados de um cliente pelo CPF",
-        "operationId": "postcliente",
-        "parameters": [
-          {
-            "name": "cpf",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/put_cliente"
-            }
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        },
-        "deprecated": false
-      },
-      "get": {
-        "tags": [
-          "Cliente"
-        ],
-        "summary": "Busca um cliente pelo CPF",
-        "description": "Busca os dados de clientes pelo CPF",
-        "operationId": "postcliente",
-        "parameters": [
-          {
-            "name": "cpf",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/api/pagamentos/v1/webhook/mercadopago": {
-      "post": {
-        "tags": [
-          "Pagamento"
-        ],
-        "summary": "Recebe os eventos de pagamento do parceiro",
-        "description": "Recebe os eventos do parceiro e envia para o domínio de pedidos",
-        "operationId": "postWebhookMercadopago",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/post_webhook_mercadopago"
-            }
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        },
-        "deprecated": false
-      }
-    },
     "/api/produtos/v1": {
       "post": {
         "tags": [
@@ -388,6 +388,241 @@
         },
         "deprecated": false
       }
+    },
+    "/api/pagamentos/v1/webhook/mercadopago": {
+      "post": {
+        "tags": [
+          "Pagamento"
+        ],
+        "summary": "Recebe os eventos de pagamento do parceiro",
+        "description": "Recebe os eventos do parceiro e envia para o domínio de pedidos",
+        "operationId": "postWebhookMercadopago",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/post_webhook_mercadopago"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "definitions": {
+    "post_cliente": {
+      "type": "object",
+      "properties": {
+        "nome": {
+          "type": "string",
+          "example": "Daniel CLmente"
+        },
+        "cpf": {
+          "type": "string",
+          "example": "37255731821"
+        },
+        "email": {
+          "type": "string",
+          "example": "dcleme17@gmail.com"
+        }
+      },
+      "required": [
+        "nome",
+        "cpf",
+        "email"
+      ]
+    },
+    "put_cliente": {
+      "type": "object",
+      "properties": {
+        "nome": {
+          "type": "string",
+          "example": "Daniel CLmente"
+        },
+        "email": {
+          "type": "string",
+          "example": "dcleme17@gmail.com"
+        }
+      },
+      "required": [
+        "nome",
+        "email"
+      ]
+    },
+    "post_produto": {
+      "type": "object",
+      "properties": {
+        "codigo": {
+          "type": "string",
+          "example": "000001"
+        },
+        "produto": {
+          "type": "string",
+          "example": "hamburger"
+        },
+        "categoria": {
+          "type": "string",
+          "example": "lanches"
+        },
+        "preco": {
+          "type": "number",
+          "example": 30.99
+        },
+        "descricao": {
+          "type": "string",
+          "example": "um delicioso hamburger feito com carne bovina"
+        }
+      },
+      "required": [
+        "codigo",
+        "produto",
+        "categoria",
+        "preco",
+        "descricao"
+      ]
+    },
+    "put_produto": {
+      "type": "object",
+      "properties": {
+        "produto": {
+          "type": "string",
+          "example": "beirute"
+        },
+        "categoria": {
+          "type": "string",
+          "example": "lanches"
+        },
+        "preco": {
+          "type": "number",
+          "example": 30.99
+        },
+        "descricao": {
+          "type": "string",
+          "example": "um delicioso beirute"
+        }
+      },
+      "required": [
+        "produto",
+        "categoria",
+        "preco",
+        "descricao"
+      ]
+    },
+    "post_pedido": {
+      "type": "object",
+      "properties": {
+        "cpf": {
+          "type": "string",
+          "example": "12345678910"
+        },
+        "itens": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "codigoProduto": {
+                "type": "string",
+                "example": "000001"
+              },
+              "quantidade": {
+                "type": "number",
+                "example": 1
+              },
+              "observacao": {
+                "type": "string",
+                "example": "Sem cebola"
+              }
+            },
+            "required": [
+              "codigoProduto",
+              "quantidade",
+              "observacao"
+            ]
+          }
+        }
+      },
+      "required": [
+        "cpf",
+        "itens"
+      ]
+    },
+    "post_webhook_pedido": {
+      "type": "object",
+      "properties": {
+        "codigoPedido": {
+          "type": "string",
+          "example": "20240303_000006"
+        },
+        "evento": {
+          "type": "string",
+          "example": "PAGO"
+        }
+      },
+      "required": [
+        "codigoPedido",
+        "evento"
+      ]
+    },
+    "put_pedido": {
+      "type": "object",
+      "properties": {
+        "cpf": {
+          "type": "string",
+          "example": "12345678910"
+        },
+        "itens": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "codigoProduto": {
+                "type": "string",
+                "example": "000001"
+              },
+              "quantidade": {
+                "type": "number",
+                "example": 1
+              },
+              "observacao": {
+                "type": "string",
+                "example": "Sem cebola"
+              }
+            },
+            "required": [
+              "codigoProduto",
+              "quantidade",
+              "observacao"
+            ]
+          }
+        }
+      },
+      "required": [
+        "cpf",
+        "itens"
+      ]
+    },
+    "post_webhook_mercadopago": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "example": "state_FINISHED"
+        },
+        "id": {
+          "type": "string",
+          "example": "123456"
+        }
+      },
+      "required": [
+        "action",
+        "id"
+      ]
     }
   }
 }

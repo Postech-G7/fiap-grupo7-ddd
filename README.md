@@ -59,7 +59,7 @@ Execute os comandos abaixo (o primeiro destrói todos os containers e volumes do
 Clone o projeto
 
 ```bash
-  git clone https://github.com/marinaslucas/fiap-grupo7-ddd
+  git clone https://github.com/luansdr/fiap-grupo7-ddd.git
 ```
 
 Vá para o diretório do projeto
@@ -196,7 +196,6 @@ Estrutura dos arquivos e diretórios do noss projeto projeto
  ┃ ┣ 📜.DS_Store
  ┃ ┣ 📜application.ts
  ┃ ┗ 📜swagger.ts
- ┣ 📜.DS_Store
  ┣ 📜Dockerfile
  ┣ 📜package-lock.json
  ┣ 📜package.json

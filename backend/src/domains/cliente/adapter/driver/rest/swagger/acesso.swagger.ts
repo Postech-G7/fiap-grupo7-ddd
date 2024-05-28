@@ -1,9 +1,9 @@
 export const post_cliente = {
-        $nome: "Luan Reis",
-        $cpf: "12345678909",
-        $email: "luanssrr@hotmail.com"
+        $nome: "Daniel CLmente",
+        $cpf: "37255731821",
+        $email: "dcleme17@gmail.com"
 }
 export const put_cliente = {
-    $nome: "Luan Reis",
-    $email: "luanssrr@hotmail.com"
+    $nome: "Daniel CLmente",
+    $email: "dcleme17@gmail.com"
 }
