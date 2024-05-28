@@ -1,5 +1,5 @@
 import { Pedido } from "domains/pedido/core/entities/pedido";
-import { MongoDB} from "domains/suporte/infra/database/mongodb";
+import { Repository} from "domains/suporte/infra/database/repository";
 import { IPedido } from "domains/pedido/core/applications/ports/pedido.port";
 import { PedidoVersao } from "domains/pedido/core/entities/pedido.versao";
 import { format } from "date-fns"
@@ -9,7 +9,7 @@ import { ClienteVersao } from "domains/cliente/core/entities/cliente.versao";
 import { Pagamento } from "domains/pagamento/core/entities/pagamento";
 import { PagamentoVersao } from "domains/pagamento/core/entities/pagamento.versao";
 
-export class PedidoDatabase extends MongoDB implements IPedido {
+export class PedidoDatabase extends Repository implements IPedido {
 
     private COLLECTION = 'pedidos'
     
@@ -145,13 +145,13 @@ export class PedidoDatabase extends MongoDB implements IPedido {
         pedido.setCliente(cliente)
 
         const pagamento = new Pagamento(
-            data?.pagamento?.cpf,
-            data?.pagamento?.nome,
-            data?.pagamento?.email,
-            data?.pagamento?.valor,
-            data?.pagamento?.parcelamento,
-            data?.pagamento?.meio,
-            data?.pagamento?.identificadorExterno
+       { cpf: data?.pagamento?.cpf,
+        nome: data?.pagamento?.nome,
+        email: data?.pagamento?.email,
+        valor: data?.pagamento?.valor,
+        parcelamento: data?.pagamento?.parcelamento,
+        tipo: data?.pagamento?.meio,
+        identificadorExterno: data?.pagamento?.identificadorExterno}
         )
 
         pagamento.setMetadata(data?.pagamento?.metadata)
