@@ -59,7 +59,7 @@ Execute os comandos abaixo (o primeiro destrói todos os containers e volumes do
 Clone o projeto
 
 ```bash
-  git clone https://github.com/marinaslucas/fiap-grupo7-ddd
+  git clone https://github.com/luansdr/fiap-grupo7-ddd.git
 ```
 
 Vá para o diretório do projeto
@@ -211,4 +211,9 @@ http://localhost:3000/api/<dominio>/<operações>
 MongoDB (pelo terminal do docker é possível usar o mongosh https://www.mongodb.com/docs/mongodb-shell/)
 ```bash
 localhost:27017
+```
+
+Para visualizar o swagger da api
+```bash
+http://localhost:3000/api-docs/
 ```

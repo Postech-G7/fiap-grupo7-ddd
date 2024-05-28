@@ -1,17 +1,17 @@
 export class ClienteVersao {
 
     constructor (versao: string, dataCadastro: Date) {
-        this._versao = versao
-        this._dataCadastro = dataCadastro
+        this.actual_version = versao
+        this._dateInput = dataCadastro
     }
 
-    private _versao: string
-    private _dataCadastro!: Date
+    private actual_version: string
+    private _dateInput!: Date
 
     public get versao(): string {
-        return this._versao
+        return this.actual_version
     }
     public get dataCadastro(): Date {
-        return this._dataCadastro
+        return this._dateInput
     }
 }

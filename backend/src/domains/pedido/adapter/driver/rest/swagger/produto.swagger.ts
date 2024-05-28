@@ -1,13 +1,13 @@
 export const post_produto = {
-    $codigo: "000001",
+    $codigo: "000003",
     $produto: "hamburger",
     $categoria: "lanches",
-    $preco: 30.99,
-    $descricao: "um delicioso hamburger feito com carne bovina"
+    $preco: 19.99,
+    $descricao: "Hamburguer com cheddar"
 } 
 export const put_produto = {
     $produto: "beirute",
     $categoria: "lanches",
-    $preco: 30.99,
-    $descricao: "um delicioso beirute"
+    $preco: 23.99,
+    $descricao: "Beirute com mussarela de buffala"
 }

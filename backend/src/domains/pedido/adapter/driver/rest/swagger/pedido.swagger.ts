@@ -1,29 +1,29 @@
 import { EventosPedido } from "domains/pedido/core/entities/pedido"
 
 export const post_pedido = {
-    $cpf: "12345678910",
+    $cpf: "12345678909",
     $itens: [
         {
             $codigoProduto: "000001",
             $quantidade: 1 ,
-            $observacao: "Sem cebola"
+            $observacao: "N/A"
         }
     ]
 } 
 
 export const put_pedido = {
-    $cpf: "12345678910",
+    $cpf: "12345678909",
     $itens: [
         {
             $codigoProduto: "000001",
             $quantidade: 1 ,
-            $observacao: "Sem cebola"
+            $observacao: "sem picles"
         }
     ]
 }
 
 export const post_webhook_pedido = {
-    $codigoPedido: '20240303_000006',
+    $codigoPedido: '20242705_000001',
     $evento: EventosPedido.PAGO
 }
 

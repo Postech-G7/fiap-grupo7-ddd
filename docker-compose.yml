@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   mongo-express:
     image: mongo-express
@@ -13,7 +15,7 @@ services:
     links:
       - database
     networks:
-      - networks-fiap
+      - fiap-network
     ports:
       - "8081:8081"      
   database:
@@ -27,7 +29,7 @@ services:
     volumes:
       - database_data:/data/db
     networks:
-      - networks-fiap
+      - fiap-network
   backend:
     build:
       context: ./
@@ -39,11 +41,13 @@ services:
     volumes:
       - backend_data:/home/node/app
     networks:
-      - networks-fiap  
+      - fiap-network  
     ports:
       - "3000:3000"            
+    depends_on:
+      - database
 networks: 
-    networks-fiap:
+    fiap-network:
       driver: bridge
 volumes:
   database_data:

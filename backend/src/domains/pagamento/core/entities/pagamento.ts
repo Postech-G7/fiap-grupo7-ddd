@@ -1,7 +1,7 @@
 import { PagamentoVersao } from "./pagamento.versao"
 
 export enum ParceiroNegocioPagamento {
-    MERCADOPAGO = 'MERCADO_PAGO',
+    MERCADO_PAGO = 'MERCADO_PAGO',
 }
 
 export enum MeioPagamento {

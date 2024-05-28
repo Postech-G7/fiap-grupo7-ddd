@@ -1,31 +1,20 @@
 FROM node:20
 USER root
 WORKDIR /home/node/app
-
-# Copie o package.json e o tsconfig.json
-COPY backend/package.json ./
-COPY backend/tsconfig.json ./
-
-# Instale as dependências
-RUN npm install
-
-# Copie o código fonte
+COPY backend/package.json backend/pnpm-lock.yaml ./
+COPY backend/tsconfig.json .
 COPY backend/src ./src
-
-# Execute o comando tsx após instalar as dependências
-RUN npx tsx ./src/swagger.ts
-
-# Configure as variáveis de ambiente
+RUN npm install -g pnpm
+RUN pnpm install
+RUN pnpm tsx ./src/swagger.ts
 ENV PORT=3000
-ENV DATABASE_URL=mongodb://root:mongo2023@localhost:27017
-ENV MERCADOPAGO_WEBHOOK_URL=http:/br
-ENV MERCADOPAGO_TOKEN=TEST-2
-ENV MERCADOPAGO_POS=SU
-ENV MERCADOPAGO_URL=https://api.mercadopago.com/123
-ENV MERCADOPAGO_USERID=8496
+ENV DATABASE_URL=mongodb://root:mongo2023@database:27017
 
-# Exponha a porta da aplicação
+ENV MERCADO_PAGO_USERID=8496
+ENV MERCADO_PAGO_TOKEN=TEST-2
+ENV MERCADO_PAGO_WEBHOOK_URL=http:/br
+ENV MERCADO_PAGO_POS=SU
+ENV MERCADO_PAGO_URL=https://api.mercadopago.com/44234242342342
+
 EXPOSE 3000
-
-# Comando para iniciar a aplicação
-CMD ["npm", "start"]
+CMD [ "pnpm", "start"]

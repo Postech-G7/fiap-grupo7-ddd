@@ -138,8 +138,8 @@ export class PedidoDatabase extends MongoDB implements IPedido {
             data?.cliente.nome, 
             data?.cliente.email,
             new ClienteVersao(
-                data?.cliente.versao._versao,
-                data?.cliente.versao._dataCadastro
+                data?.cliente.versao.actual_version,
+                data?.cliente.versao._dateInput
         ))
 
         pedido.setCliente(cliente)

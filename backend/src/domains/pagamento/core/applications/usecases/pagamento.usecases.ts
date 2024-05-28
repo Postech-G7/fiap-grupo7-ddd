@@ -20,7 +20,7 @@ export class PagamentoUseCases {
         let metadata
         
         if (pagamento.getMeio() === MeioPagamento.PIX) {
-            pagamento.setParceiroNegocio(ParceiroNegocioPagamento.MERCADOPAGO)
+            pagamento.setParceiroNegocio(ParceiroNegocioPagamento.MERCADO_PAGO)
             metadata = await this.external.gerarCobrancaPix(pagamento).then()
         } else {
             throw new CustomError('Meio de recebimento inválido', 400,false, [])
