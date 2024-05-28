@@ -1,6 +1,6 @@
 import * as mongoDB from "mongodb";
 
-export class MongoDB {
+export class Repository {
     url: string;
     database!: string
     collection!: string
@@ -21,4 +21,9 @@ export class MongoDB {
   
         return db.collection(collection);     
     }
+
+    protected toObjectId(id: string): mongoDB.ObjectId {
+        return new mongoDB.ObjectId(id);
+    }
+
 }

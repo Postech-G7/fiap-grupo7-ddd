@@ -1,9 +1,8 @@
-import {NextFunction, Request, Response} from 'express';
+import {NextFunction, Request} from 'express';
 import { PagamentoUseCases } from 'domains/pagamento/core/applications/usecases/pagamento.usecases';
 import { CustomError } from 'domains/suporte/entities/custom.error';
 import { CustomResponse } from 'domains/suporte/entities/custom.response';
 import { validationResult } from 'express-validator';
-import { Pagamento } from 'domains/pagamento/core/entities/pagamento';
 
 export class PagamentoController {
 
