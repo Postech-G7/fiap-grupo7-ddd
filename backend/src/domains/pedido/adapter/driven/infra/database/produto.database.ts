@@ -1,10 +1,10 @@
 import { Produto } from "domains/pedido/core/entities/produto";
-import { MongoDB } from "domains/suporte/infra/database/mongodb";
+import { Repository } from "domains/suporte/infra/database/repository";
 import { IProduto } from "domains/pedido/core/applications/ports/produto.port";
 import { ProdutoVersao } from "domains/pedido/core/entities/produto.versao";
 import { CustomError } from "domains/suporte/entities/custom.error";
 
-export class ProdutoDatabase extends MongoDB implements IProduto {
+export class ProdutoDatabase extends Repository implements IProduto {
 
     constructor() {
         super(process.env.DATABASE_URL!);

@@ -1,9 +1,9 @@
 import { Cliente } from "domains/cliente/core/entities/cliente";
-import { MongoDB } from "domains/suporte/infra/database/mongodb";
+import { Repository } from "domains/suporte/infra/database/repository";
 import { ICliente } from "domains/cliente/core/applications/ports/cliente.port";
 import { ClienteVersao } from "domains/cliente/core/entities/cliente.versao";
 
-export class ClienteDatabase extends MongoDB implements ICliente {
+export class ClienteDatabase extends Repository implements ICliente {
     
     constructor() {
         console.info(process.env.DATABASE_URL)

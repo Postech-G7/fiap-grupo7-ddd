@@ -8,7 +8,7 @@ import { Cliente } from "domains/cliente/core/entities/cliente";
 import { format } from "date-fns";
 import { ProdutoUseCases } from "./produto.usecases";
 import { PagamentoUseCases } from "domains/pagamento/core/applications/usecases/pagamento.usecases";
-import { MeioPagamento, Pagamento, StatusPagamento } from "domains/pagamento/core/entities/pagamento";
+import { TipoPagamento, Pagamento, StatusPagamento } from "domains/pagamento/core/entities/pagamento";
 
 export class PedidoUseCases {
 
