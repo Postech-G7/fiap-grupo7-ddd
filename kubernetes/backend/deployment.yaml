@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  labels: 
+    app: backend
+spec:
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend-tech-challange
+        image: robertogfurlan/grupo7backendimage:lastest
+        imagePullPolicy: Always        
+        resources:
+          requests:
+            cpu: 1000m
+            memory: 512Mi
+        ports:
+        - containerPort: 3000     
+        livenessProbe: 
+          httpGet:
+            path: /api/health-check/v1
+            port: 3000
+          periodSeconds: 10
+          failureThreshold: 3
+          initialDelaySeconds: 20 
+        readinessProbe:
+          httpGet:
+            path: /api/health-check/v1
+            port: 3000
+          periodSeconds: 10
+          failureThreshold: 5
+          initialDelaySeconds: 3                    
+        env:
+          - name: PORT
+            valueFrom:
+              configMapKeyRef:
+                name: backend
+                key: PORT
+          - name: MERCADOPAGO_URL
+            valueFrom:
+              configMapKeyRef:
+                name: backend
+                key: MERCADOPAGO_URL
+          - name: MERCADOPAGO_WEBHOOK_URL
+            valueFrom:
+              configMapKeyRef:
+                name: backend
+                key: MERCADOPAGO_WEBHOOK_URL
+          - name: DATABASE_URL
+            valueFrom:
+              secretKeyRef:
+                name: backend
+                key: DATABASE_URL  
+          - name: MERCADOPAGO_USERID
+            valueFrom:
+              secretKeyRef:
+                name: backend
+                key: MERCADOPAGO_USERID  
+          - name: MERCADOPAGO_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: backend
+                key: MERCADOPAGO_TOKEN  
+          - name: MERCADOPAGO_POS
+            valueFrom:
+              secretKeyRef:
+                name: backend
+                key: MERCADOPAGO_POS  
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
