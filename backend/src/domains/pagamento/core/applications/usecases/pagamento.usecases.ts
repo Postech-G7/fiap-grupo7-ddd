@@ -66,12 +66,15 @@ export class PagamentoUseCases {
       identificadorExterno
     );
 
+    console.log(pagamento?.getStatus())
+    
     if (pagamento?.getStatus() !== StatusPagamento.PENDENTE) {
+      const message = "O Pagamento não está com o status válido para baixa"
       return new CustomError(
-        "O Pagamento não está com o status válido para baixa",
+        message,
         400,
         false,
-        []
+        [message]
       );
     }
 

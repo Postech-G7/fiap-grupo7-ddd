@@ -26,6 +26,10 @@ export interface PagamentoDados {
   parcelamento: number;
   tipo: string;
   identificadorExterno: string;
+  data: string
+  parceiroNegocio: string
+  metadata: any
+  status: string
 }
 export class Pagamento {
   constructor(dados: any) {
@@ -37,6 +41,10 @@ export class Pagamento {
       parcelamento,
       tipo,
       identificadorExterno,
+      data,
+      parceiroNegocio,
+      metadata,
+      status
     } = dados;
 
     this.nome = nome;
@@ -46,10 +54,10 @@ export class Pagamento {
     this.parcelamento = parcelamento;
     this.tipo = tipo;
     this.identificadorExterno = identificadorExterno;
-    this.data = new Date();
-    this.parceiroNegocio = null;
-    this.status = null;
-    this.metadata = null;
+    this.data = data ?? new Date();
+    this.parceiroNegocio = parceiroNegocio;
+    this.status = status;
+    this.metadata = metadata;
     this.versao = null;
   }
 

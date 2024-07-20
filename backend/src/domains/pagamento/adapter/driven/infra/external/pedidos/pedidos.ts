@@ -19,7 +19,7 @@ export class PedidosExternal {
       });
 
       return axios.post(
-        `/api/pedidos/v1/webhook`,
+        `http://localhost:3000/api/pedidos/v1/webhook`,
         payload
       )
     }

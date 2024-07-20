@@ -47,11 +47,11 @@ export class PagamentoDatabase extends Repository implements IPagamento {
         result.insertedId.getTimestamp()
       );
 
-      const metadata = pagamento.getMetadata()
+      const metadata = pagamento.getMetadata();
       return {
         ...version,
-        metadata
-      }
+        metadata,
+      };
     } catch (error) {
       console.error("Erro ao criar pagamento:", error);
       return null;
@@ -69,18 +69,33 @@ export class PagamentoDatabase extends Repository implements IPagamento {
           { sort: { _id: -1 } }
         )
         .limit(1);
-      const data = await cursor.next();
+      const response = await cursor.next();
 
-      if (!data) return null;
-      const { cpf, nome, email, valor, parcelamento, tipo } = data;
+      if (!response) return null;
+      const {
+        cpf,
+        nome,
+        email,
+        valor,
+        parcelamento,
+        tipo,
+        data,
+        parceiroNegocio,
+        metadata,
+        status,
+      } = response;
       const pagamentoData: PagamentoDados = {
         nome: nome,
-        cpf: new CPF(cpf),
-        email: new Email(email),
+        cpf: new CPF(cpf ?? cpf.value),
+        email: new Email(email ?? email.value),
         valor: valor,
         parcelamento: parcelamento,
         tipo: tipo,
         identificadorExterno,
+        data: data,
+        parceiroNegocio: parceiroNegocio,
+        metadata: metadata,
+        status: status,
       };
 
       const pagamento = new Pagamento(pagamentoData);
@@ -97,7 +112,7 @@ export class PagamentoDatabase extends Repository implements IPagamento {
       const pagamentoRef = await this.getPagamentoRef();
       const id = this.toObjectId(pagamento.getVersao()?.versao!);
       const response = await pagamentoRef.updateOne(
-        { _id: id},
+        { _id: id },
         { $set: { versionado: true } },
         { upsert: true }
       );

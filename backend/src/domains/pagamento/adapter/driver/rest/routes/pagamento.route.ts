@@ -8,7 +8,7 @@ import { PagamentoExternal } from 'domains/pagamento/adapter/driven/infra/extern
 const router = Router();
 
 router.post('/v1/webhook/mercadopago',  
-  body('id').trim().isLength({ min: 1, max: 16 }).notEmpty(),
+  body('id').trim().isLength({ min: 1, max: 50 }).notEmpty(),
   body('action').trim().isLength({ min: 1, max: 20 }).notEmpty(),
   (request: Request, _response: Response, next: NextFunction) => {
 
