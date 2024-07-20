@@ -24,7 +24,7 @@ export class PagamentoDatabase extends Repository implements IPagamento {
     return pagamentoRef;
   }
 
-  async criar(pagamento: Pagamento): Promise<PagamentoVersao | null> {
+  async criar(pagamento: Pagamento): Promise<any | null> {
     try {
       const pagamentoRef = await this.getPagamentoRef();
 
@@ -42,10 +42,16 @@ export class PagamentoDatabase extends Repository implements IPagamento {
         status: pagamento.getStatus(),
       });
 
-      return new PagamentoVersao(
+      const version = new PagamentoVersao(
         result.insertedId.toString(),
         result.insertedId.getTimestamp()
       );
+
+      const metadata = pagamento.getMetadata()
+      return {
+        ...version,
+        metadata
+      }
     } catch (error) {
       console.error("Erro ao criar pagamento:", error);
       return null;

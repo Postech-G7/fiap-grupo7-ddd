@@ -17,7 +17,7 @@ export class PagamentoUseCases {
     private readonly external: PagamentoExternal
   ) {}
 
-  async criar(pagamento: Pagamento): Promise<PagamentoVersao | null> {
+  async criar(pagamento: Pagamento): Promise<any | null> {
     if (pagamento.getTipo() === TipoPagamento.PIX) {
       pagamento.setParceiroNegocio(ParceiroNegocioPagamento.MERCADOPAGO);
       const metadata = await this.external.gerarCobrancaPix(pagamento);
@@ -31,6 +31,7 @@ export class PagamentoUseCases {
       }
       pagamento.setMetadata(metadata);
       pagamento.setStatus(StatusPagamento.PENDENTE);
+
       return await this.database.criar(pagamento);
     } else {
       throw new CustomError("Meio de recebimento inválido", 400, false, []);

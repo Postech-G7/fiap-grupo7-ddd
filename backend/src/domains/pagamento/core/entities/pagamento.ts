@@ -28,7 +28,7 @@ export interface PagamentoDados {
   identificadorExterno: string;
 }
 export class Pagamento {
-  constructor(dados: PagamentoDados) {
+  constructor(dados: any) {
     const {
       cpf,
       email,

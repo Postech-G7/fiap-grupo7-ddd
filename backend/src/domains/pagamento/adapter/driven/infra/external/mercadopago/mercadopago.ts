@@ -12,18 +12,28 @@ export enum StatusPagamentoMercadoPago {
 export class MercadoPagoExternal {
     constructor(private axiosInstance: AxiosInstance) {
         const {
-            MERCADOPAGO_USERID,
-            MERCADOPAGO_POS
+            MERCADO_PAGO_USERID,
+            MERCADO_PAGO_POS
         } = process.env;
 
-        if (!MERCADOPAGO_USERID || !MERCADOPAGO_POS) {
+        if (!MERCADO_PAGO_USERID || !MERCADO_PAGO_POS) {
             throw new CustomError("MercadoPago configuration error", 500, false, []);
         }
     }
 
     criarPedido(descricao: string, codigoPedido: string, total: number): Promise<any> {
         const payload = this.pedidoPayload(descricao, codigoPedido, total);
-        return this.axiosInstance.post(`/instore/orders/qr/seller/collectors/${process.env.MERCADOPAGO_USERID}/pos/${process.env.MERCADOPAGO_POS}/qrs`, payload);
+        const token = process.env.MERCADO_PAGO_TOKEN;
+
+        return this.axiosInstance.post(
+            `${process.env.MERCADO_PAGO_URL}/instore/orders/qr/seller/collectors/${process.env.MERCADO_PAGO_USERID}/pos/${process.env.MERCADO_PAGO_POS}/qrs`,
+            payload,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        );
     }
 
     private pedidoPayload(descricao: string, codigoPedido: string, total: number): Object {
@@ -40,7 +50,7 @@ export class MercadoPagoExternal {
                 unit_measure: "unit",
                 total_amount: total
             }],
-            notification_url: `${process.env.MERCADOPAGO_WEBHOOK_URL}/api/pagamentos/v1/webhook/${codigoPedido}`,
+            notification_url: `${process.env.MERCADO_PAGO_WEBHOOK_URL}/api/pagamentos/v1/webhook/${codigoPedido}`,
             title: `Pedido ${codigoPedido}`,
             total_amount: total
         };
