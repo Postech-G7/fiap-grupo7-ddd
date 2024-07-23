@@ -51,8 +51,6 @@ spec:
             cpu: 1000m         
       volumes:
       - name: database
-        persistentVolumeClaim:
-          claimName: mongodb 
   replicas: 1
   selector:
     matchLabels:
