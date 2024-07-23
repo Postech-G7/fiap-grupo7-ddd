@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
       - name: backend-tech-challange
-        image: luansdr/fiap-tec-challenger-backend:lastest
+        image: luansdr/fiap-tec-challenger-backend:latest
         imagePullPolicy: Always
         resources:
           requests:
