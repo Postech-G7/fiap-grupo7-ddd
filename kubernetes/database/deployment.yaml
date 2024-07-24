@@ -2,9 +2,13 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: database
-  labels: 
+  labels:
     app: database
 spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: database
   template:
     metadata:
       labels:
@@ -14,46 +18,26 @@ spec:
       - name: mongodb
         image: mongo
         volumeMounts:
-          - name: database
-            mountPath: /data/db        
+        - name: database
+          mountPath: /data/db
         ports:
-        - containerPort: 27017  
-        # livenessProbe:
-        #   exec:
-        #     command:
-        #     - mongosh -u $MONGO_INITDB_ROOT_USERNAME -p $MONGO_INITDB_ROOT_PASSWORD --eval db.adminCommand\(\"ping\"\)
-        #   failureThreshold: 3
-        #   periodSeconds: 10
-        #   successThreshold: 1
-        #   timeoutSeconds: 5         
-        # readinessProbe:
-        #   exec:
-        #     command:
-        #     - mongosh -u $MONGO_INITDB_ROOT_USERNAME -p $MONGO_INITDB_ROOT_PASSWORD --eval db.adminCommand\(\"ping\"\)
-        #   failureThreshold: 3
-        #   periodSeconds: 10
-        #   successThreshold: 1
-        #   timeoutSeconds: 5                   
+        - containerPort: 27017
         env:
-          - name: MONGO_INITDB_ROOT_USERNAME
-            valueFrom:
-              configMapKeyRef:
-                name: mongo
-                key: MONGO_INITDB_ROOT_USERNAME
-          - name: MONGO_INITDB_ROOT_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: mongo
-                key: MONGO_INITDB_ROOT_PASSWORD        
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: mongo
+              key: MONGO_INITDB_ROOT_USERNAME
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mongo
+              key: MONGO_INITDB_ROOT_PASSWORD
         resources:
           limits:
             memory: 2000Mi
-            cpu: 1000m         
+            cpu: 1000m
       volumes:
       - name: database
         persistentVolumeClaim:
-          claimName: mongodb 
-  replicas: 1
-  selector:
-    matchLabels:
-      app: database
+          claimName: mongodb-pvc
