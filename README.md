@@ -5,28 +5,32 @@
 ### Stack Utilizada
 
 **Back-end:**
+
 - Node.js 20
 - Express 4.18.2
 - TypeScript 5.3.3
 
 **Banco de Dados:**
-- MongoDB
 
+- MongoDB
 
 ### Requisitos de Negócio
 
 #### Sistema de Autoatendimento de Pedidos - Lanchonetes
 
 **Clientes:**
-- Incluir, Alterar e Consultar os Clientes.
+
+- Criar, Atualizar e Consultar os Clientes.
   - Identificação por CPF.
   - A inclusão deverá conter CPF, nome e e-mail.
 
 **Produtos:**
-- Incluir, Alterar, Excluir e Listar todos ou por categorias.
+
+- Criar, Atualizar, Excluir e Listar todos ou por categorias.
 
 **Pedidos:**
-- Incluir, Alterar e Listar os Pedidos.
+
+- Criar, Atualizar e Listar os Pedidos.
   - O combo pode ter ou não os seguintes itens: lanche, acompanhamento e bebida.
   - Deve exibir o nome, descrição e preço de cada produto.
   - Status do pedido: Recebido, Em Preparação, Pronto e Finalizado.
@@ -37,22 +41,15 @@
     - Pedidos finalizados não devem aparecer.
 
 **Fazer Checkout do Pedido:**
+
 - Receber os produtos solicitados e retornar à identificação do pedido.
 
 **Pagamento:**
+
 - A forma de pagamento será via QRCode do Mercado Pago.
 - Webhook para receber confirmação de pagamento aprovado ou recusado.
 - Consultar o status do pagamento (aprovado ou não).
 - Após o pedido ser confirmado e pago, ele é enviado para a cozinha.
-
-## Subindo os containers do Docker
-
-Execute os comandos abaixo (o primeiro destrói todos os containers e volumes do docker, incluindo o banco de dados, então cuidado.)
-
-```bash
-  docker-compose down -v --rmi local
-  docker-compose up -d
-```
 
 ## Preparação para desenvolver localmente
 
@@ -65,7 +62,7 @@ Clone o projeto
 Vá para o diretório do projeto
 
 ```bash
-  cd fiap-grupo7-ddd
+  cd fiap-grupo7-ddd/backend
 ```
 
 Instale as dependencias
@@ -74,21 +71,83 @@ Instale as dependencias
   npm install
 ```
 
-Inicie o servidor
+## Subindo os containers do Docker
+
+Vá para o diretório kubernetes
 
 ```bash
-  npm dev
+  cd fiap-grupo7-ddd/kubernetes
+```
+
+Execute os comandos abaixo:
+
+```bash
+  kubectl apply -f backend
+  kubectl apply -f database
+  kubectl apply -f mongo-express
+  kubectl get pods para validar os pods
+  kubectl get svc para validar os serviços e portas
+```
+
+Para quem utiliza minikube, acesse a url do serviço backend:
+
+```bash
+  minikube service backend-ext
+```
+
+Após completar a incialização dos containers, os serviços podem ser acessados conforme abaixo:
+Backend (API)
+
+```bash
+http://localhost:31300/api/<dominio>/<operações>
+```
+
+MongoDB
+
+```bash
+http://localhost:31000/
+```
+
+Para quem utiliza minikube, acesse a url do serviço mongo-express:
+
+```bash
+  minikube service backend-ext
+```
+
+Para visualizar o swagger da api
+
+```bash
+http://localhost:31300/api-docs/
+```
+
+Collections
+//TODO
+
+```bash
+https://api.postman.com/collections/
+```
+
+Documentaçâo da arquitetura do projeto:
+//TODO
+
+Vídeo:
+
+```bash
+https://www.youtube.com/watch?v=rq_9XbBKiqE
 ```
 
 Estrutura dos arquivos e diretórios do noss projeto projeto
+
 ```shell
 📦backend
  ┣ 📂src
  ┃ ┣ 📂configuration
  ┃ ┃ ┣ 📂environments
- ┃ ┃ ┃ ┗ 📜development.env
+ ┃ ┃ ┃ ┣ 📜development.env
+ ┃ ┃ ┃ ┗ 📜production.env
  ┃ ┃ ┣ 📜environment.config.ts
  ┃ ┃ ┣ 📜express.config.ts
+ ┃ ┃ ┣ 📜http.config.ts
  ┃ ┃ ┣ 📜routes.config.ts
  ┃ ┃ ┗ 📜server.config.ts
  ┃ ┣ 📂domains
@@ -141,9 +200,12 @@ Estrutura dos arquivos e diretórios do noss projeto projeto
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜pagamento.port.ts
  ┃ ┃ ┃ ┃ ┃ ┗ 📂usecases
  ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜pagamento.usecases.ts
- ┃ ┃ ┃ ┃ ┗ 📂entities
+ ┃ ┃ ┃ ┃ ┣ 📂entities
  ┃ ┃ ┃ ┃ ┃ ┣ 📜pagamento.ts
  ┃ ┃ ┃ ┃ ┃ ┗ 📜pagamento.versao.ts
+ ┃ ┃ ┃ ┃ ┗ 📂value-objects
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜cpf.ts
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜email.ts
  ┃ ┃ ┣ 📂pedido
  ┃ ┃ ┃ ┣ 📂adapter
  ┃ ┃ ┃ ┃ ┣ 📂driven
@@ -187,7 +249,7 @@ Estrutura dos arquivos e diretórios do noss projeto projeto
  ┃ ┃ ┃ ┃ ┗ 📜custom.response.ts
  ┃ ┃ ┃ ┗ 📂infra
  ┃ ┃ ┃ ┃ ┣ 📂database
- ┃ ┃ ┃ ┃ ┃ ┗ 📜mongodb.ts
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜repository.ts
  ┃ ┃ ┃ ┃ ┗ 📜error.handler.ts
  ┃ ┃ ┗ 📜.DS_Store
  ┃ ┣ 📂swagger
@@ -200,20 +262,27 @@ Estrutura dos arquivos e diretórios do noss projeto projeto
  ┣ 📜Dockerfile
  ┣ 📜package-lock.json
  ┣ 📜package.json
+ ┣ 📜pnpm-lock.yaml
  ┗ 📜tsconfig.json
-```
-
-Após completar a incialização dos containers, os serviços podem ser acessados conforme abaixo:
-Backend (API)
-```bash
-http://localhost:3000/api/<dominio>/<operações>
-```
-MongoDB (pelo terminal do docker é possível usar o mongosh https://www.mongodb.com/docs/mongodb-shell/)
-```bash
-localhost:27017
-```
-
-Para visualizar o swagger da api
-```bash
-http://localhost:3000/api-docs/
+📦kubernetes
+ ┣ 📂backend
+ ┃ ┣ 📜configmap.yaml
+ ┃ ┣ 📜deployment.yaml
+ ┃ ┣ 📜hpa.yaml
+ ┃ ┣ 📜secrets.yaml
+ ┃ ┗ 📜service-ext.yaml
+ ┣ 📂database
+ ┃ ┣ 📜configmap.yaml
+ ┃ ┣ 📜deployment.yaml
+ ┃ ┣ 📜persistent-volume-claim.yaml
+ ┃ ┣ 📜persistent-volume.yaml
+ ┃ ┣ 📜secrets.yaml
+ ┃ ┣ 📜service-external.yaml
+ ┃ ┗ 📜service.yaml
+ ┣ 📂mongo-express
+ ┃ ┣ 📜configmap.yaml
+ ┃ ┣ 📜deployment.yaml
+ ┃ ┣ 📜secrets.yaml
+ ┃ ┗ 📜service-ext.yaml
+ ┗ 📜READMME.md
 ```
