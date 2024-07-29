@@ -121,19 +121,19 @@ http://localhost:31300/api-docs/
 ```
 
 Collections
-//TODO
+https://elements.getpostman.com/redirect?entityId=19168448-e1329958-0058-4f45-b1c6-cc9548d7a701&entityType=collection
 
 ```bash
 https://api.postman.com/collections/
 ```
 
 Documentaçâo da arquitetura do projeto:
-//TODO
+![alt text](<arquitetura hexagonal.jpg>)
 
 Vídeo:
 
 ```bash
-https://www.youtube.com/watch?v=rq_9XbBKiqE
+https://www.youtube.com/watch?v=nfeyK9pgyZ8
 ```
 
 Estrutura dos arquivos e diretórios do noss projeto projeto
