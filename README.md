@@ -79,14 +79,18 @@ Vá para o diretório kubernetes
   cd fiap-grupo7-ddd/kubernetes
 ```
 
-Execute os comandos abaixo:
+Execute os comandos abaixo para subir os serviços:
 
 ```bash
   kubectl apply -f backend
   kubectl apply -f database
   kubectl apply -f mongo-express
-  kubectl get pods para validar os pods
-  kubectl get svc para validar os serviços e portas
+```
+
+Execute os comandos abaixo para validar os pods e portas:
+```bash
+  kubectl get pods
+  kubectl get svc
 ```
 
 Para quem utiliza minikube, acesse a url do serviço backend:
