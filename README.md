@@ -82,9 +82,9 @@ Vá para o diretório kubernetes
 Execute os comandos abaixo para subir os serviços:
 
 ```bash
-  kubectl apply -f backend
   kubectl apply -f database
   kubectl apply -f mongo-express
+  kubectl apply -f backend
 ```
 
 Execute os comandos abaixo para validar os pods e portas:
@@ -124,7 +124,7 @@ Para visualizar o swagger da api
 http://localhost:31300/api-docs/
 ```
 
-Collections
+Collections PostMan
 ```bash
 https://elements.getpostman.com/redirect?entityId=19168448-e1329958-0058-4f45-b1c6-cc9548d7a701&entityType=collection
 ```
