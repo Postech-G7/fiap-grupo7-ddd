@@ -125,13 +125,21 @@ http://localhost:31300/api-docs/
 ```
 
 Collections PostMan
+- Para baixar a collection, clique nos ... do lado direito da tela e clicar em export.
 ```bash
 https://elements.getpostman.com/redirect?entityId=19168448-e1329958-0058-4f45-b1c6-cc9548d7a701&entityType=collection
 ```
 
-Documentaçâo da arquitetura do projeto:
+
+Desenho da arquitetura do projeto:
 ![alt text](<arquitetura hexagonal.jpg>)
 
+
+Desenho da infraestrutura do projeto backend:
+![alt text](<backend - arquitetura.jpg>)
+
+Desenho da infraestrutura do projeto database:
+![alt text](<database - arquitetura.jpg>)
 Vídeo:
 
 ```bash
